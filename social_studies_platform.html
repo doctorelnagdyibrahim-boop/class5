@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة الدراسات الاجتماعية - الصف الخامس</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Cairo',sans-serif;background:#f0f8ff;color:#0c2340;}
+.container{max-width:1200px;margin:0 auto;padding:20px;}
+.header{background:linear-gradient(135deg,#0b63b7,#42a5f5);color:#fff;padding:25px;border-radius:12px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+.header h1{margin:0;font-size:28px;}
+.header p{margin:5px 0;font-size:16px;}
+.unit{margin-top:25px;padding:15px;background:#e3f2fd;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
+.unit h2{margin:0;font-size:22px;color:#0b3d91;}
+.lesson{padding:10px;margin:10px 0;background:#fff;border-radius:12px;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.05);transition:0.3s;}
+.lesson:hover{background:#d0e7ff;}
+.lesson span{font-weight:700;}
+.card{background:#fff;padding:25px;border-radius:15px;box-shadow:0 10px 30px rgba(8,30,60,.06);margin-bottom:25px;}
+.mindmap{padding:15px;border-radius:15px;background:#e9f7ff;margin:20px 0;display:flex;flex-wrap:wrap;gap:10px;}
+.node{border-radius:12px;padding:12px 20px;border:2px dashed #cce6ff;background:#f0faff;cursor:pointer;transition:0.3s;}
+.node:hover{background:#d0f0ff;}
+.node .title{font-weight:700;font-size:18px;}
+.node .desc{display:none;margin-top:5px;font-size:14px;color:#1a1a1a;}
+.activity{background:#fffaf0;padding:15px;border-radius:15px;border:2px solid #fff0d6;margin-top:20px;}
+.choice{display:block;width:100%;text-align:right;padding:12px;border-radius:12px;border:1px solid #e6eefb;background:#fff;margin:10px 0;cursor:pointer;transition:0.3s;}
+.choice.correct{background:#ecfdf3;border-color:#a7f3d0;}
+.choice.wrong{background:#fff1f2;border-color:#fecaca;}
+.controls{display:flex;justify-content:space-between;margin-top:20px;}
+.btn{padding:12px 20px;border:none;border-radius:12px;background:#0b63b7;color:#fff;cursor:pointer;transition:0.3s;font-size:16px;}
+.btn:disabled{background:#9ca3af;cursor:default;}
+.footer{text-align:center;color:#6b7280;font-size:14px;margin-top:30px;padding-top:10px;border-top:1px solid #cce6ff;}
+.modal{display:none;position:fixed;z-index:999;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,0.8);}
+.modal-content{background:#fff;margin:50px auto;padding:20px;border-radius:15px;max-width:900px;position:relative;}
+.close{position:absolute;top:15px;right:20px;color:#333;font-size:28px;font-weight:bold;cursor:pointer;transition:0.3s;}
+.close:hover{color:#f00;}
+@media(max-width:768px){.modal-content iframe{height:250px;}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>البرنامج التعليمي القائم على الخرائط الذهنية المدعومة إلكترونيًا </h1>
+   <h1>(مقرر مادة الدراسات الاجتماعية للصف الخامس الابتدائي)</h1>
+
+    <p></p>
+    <p>إعداد باحثة الدكتوراة / أميرة صلاح السيد</p>
+ <p>إشراف</p>
+ <p>    الأستاذ الدكتور / منصور أحمد عبد المنعم أستاذ مناهج وطرق تدريس الجغرافيا المتفرغ كلية التربية – جامعة الزقازيق      </p>
+ <p>     الدكتور /حسن أحمد حسن مسلم مدرس مناهج وطرق تدريس التربية الخاصة كلية علوم الاعاقة والتأهيل- جامعة الزقازيق</p>
+
+  </div>
+
+  <div id="home"></div>
+  <div id="app"></div>
+  <div class="footer">تم تصميم البرنامج بواسطة الباحثة الدكتورة / أميرة صلاح السيد</div>
+</div>
+
+<div id="videoModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <iframe id="modalVideo" width="100%" height="400" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+const units = [
+{
+title:'الوحدة الأولى: مصر موقع متميز وطبيعة متنوعة',
+lessons:[
+{title:'الدرس الأول: موقع مصر الفلكي', description:'مصر تقع في شمال شرق أفريقيا وتطل على البحر المتوسط شمالًا وخليج السويس والبحر الأحمر شرقًا. موقعها الفلكي مهم لتحديد خطوط الطول والعرض.', video:'https://www.youtube.com/embed/RKKRMJxzlQI?si=RhITFg8BVQXh8hQJ', nodes:[{title:'أفريقيا وآسيا', desc:'مصر تربط بين قارتين، أفريقيا وآسيا.'},{title:'الخطوط والعروض', desc:'مصر تقع بين خطوط الطول والعرض المهمة.'},{title:'أهمية الموقع', desc:'الموقع الجغرافي يساعد على التجارة والدفاع.'}], activity:{question:'موقع مصر بين أي قارتين؟', choices:['أوروبا وآسيا','أفريقيا وآسيا','أفريقيا وأوروبا'], answer:1}},
+{title:'الدرس الثاني: مظاهر سطح مصر', description:'تتنوع مظاهر سطح مصر بين السهول والجبال والدلتا، وهي تؤثر على المناخ والأنشطة الاقتصادية.', video:'https://www.youtube.com/embed/U8wbH_q5BkE?si=lydFaPlQ7VU6Szp8', nodes:[{title:'السهول',desc:'تمثل سهول النيل أغلب أراضي مصر.'},{title:'الجروف والجبال',desc:'الجبال الموجودة في سيناء وسلسلة البحر الأحمر.'},{title:'دلتا النيل',desc:'دلتا النيل منطقة خصبة للزراعة.'}], activity:{question:'أي مما يلي من مظاهر سطح مصر؟', choices:['دلتا النيل','جبال الهملايا','البحيرات العميقة'], answer:0}},
+{title:'الدرس الثالث: مناخ مصر', description:'مناخ مصر يتنوع بين صحراوي حار ومناخ البحر المتوسط المعتدل شمالًا، مما يؤثر على النباتات والحياة.', video:'https://www.youtube.com/embed/M9d7TuVPi74?si=iROXTT1xk8Wa2HQE', nodes:[{title:'صحراء حارة',desc:'المناطق الصحراوية حارة وجافة.'},{title:'مناخ البحر المتوسط',desc:'شمال مصر يتميز بالمناخ المعتدل.'},{title:'الرياح والأمواج',desc:'تلعب الرياح دورًا في تشكيل المناخ.'}], activity:{question:'أين يسود مناخ البحر المتوسط؟', choices:['شمال مصر','وسط مصر','جنوب مصر'], answer:0}},
+{title:'الدرس الرابع: النباتات الطبيعية والحيوانات البرية', description:'تتنوع النباتات والحيوانات في مصر حسب المناخ والموقع، مع وجود محميات طبيعية للحفاظ عليها.', video:'https://www.youtube.com/embed/4TAxUdh6KyI?si=ZTWX-FjsNl-hcN5z', nodes:[{title:'نباتات صحراوية',desc:'مثل الصبار والأشجار المتحملة للجفاف.'},{title:'حيوانات برية',desc:'مثل الغزال والذئاب.'},{title:'المحميات',desc:'توجد محميات طبيعية لحماية النباتات والحيوانات.'}], activity:{question:'أي مما يلي نبات صحراوي؟', choices:['البلوط','الصبار','النخيل'], answer:1}}
+]
+},
+{
+title:'الوحدة الثانية: الحضارة المصرية القديمة',
+lessons:[
+{title:'الدرس الأول: عوامل قيام الحضارة المصرية القديمة', description:'قيام الحضارة المصرية القديمة كان نتيجة عوامل طبيعية واجتماعية مثل نهر النيل، التربة الخصبة والمناخ المعتدل.', video:'https://www.youtube.com/embed/zdsoAB0prCQ?si=XSTaydQ1j4A_BAZd', nodes:[{title:'نهر النيل',desc:'نهر النيل مصدر الحياة والزراعة.'},{title:'التربة الخصبة',desc:'تربة نهر النيل خصبة للزراعة.'},{title:'المناخ',desc:'مناخ معتدل يساعد على الحياة والزراعة.'}], activity:{question:'ما العامل الأساسي لقيام الحضارة؟', choices:['الصحارى','نهر النيل','الجبال'], answer:1}},
+{title:'الدرس الثاني: حياة المصري القديم - عصور ما قبل التاريخ', description:'المصري القديم اعتمد على الصيد وجمع الثمار قبل اكتشاف الزراعة، وكانت المساكن بسيطة وأدواتهم مصنوعة من الحجر والعظام.', video:'https://www.youtube.com/embed/c6SXIwf7NLQ?si=32_TnyS97_0ernlE', nodes:[{title:'المساكن',desc:'كانت المساكن بسيطة مصنوعة من الحجر والعظام.'},{title:'الأدوات',desc:'أدوات حجرية وعظمية للصيد.'},{title:'الصيد',desc:'الصيد وجمع الثمار كان أساس الحياة.'}], activity:{question:'ماذا كان يعتمد المصري القديم قبل التاريخ؟', choices:['الزراعة فقط','الصيد وجمع الثمار','المدن الكبيرة'], answer:1}},
+{title:'الدرس الثالث: حياة المصري القديم - العصور التاريخية', description:'مع ظهور الكتابة والتدوين ظهرت المعابد والحياة اليومية المنظمة، وانتشرت الزراعة والمدن.', video:'https://www.youtube.com/embed/eDj6AXiF54Q?si=BeRX0SJ8fagz4rGr', nodes:[{title:'الكتابة',desc:'ظهور الكتابة لتسجيل الأحداث.'},{title:'المعابد',desc:'بناء المعابد للتعبد والاحتفال.'},{title:'الحياة اليومية',desc:'تنظيم الحياة اليومية والزراعة والمدن.'}], activity:{question:'ماذا أوجد ظهور الكتابة؟', choices:['تسجيل الأحداث','صناعة الفخار','زراعة جديدة'], answer:0}},
+{title:'الدرس الرابع: مصر في عصرى البطالمة والرومان', description:'شهدت مصر في عصرى البطالمة والرومان تطورًا ثقافيًا ومعماريًا كبيرًا، ومن أبرز آثارهم مكتبة الإسكندرية والمعابد.', video:'https://www.youtube.com/embed/AG3C-cswTHU?si=7f17Nyp1ZrDYFHEn', nodes:[{title:'الحكم البطلمي',desc:'الحكم البطلمي أثر على الثقافة والسياسة.'},{title:'التفاعل الثقافي',desc:'تبادل ثقافي مع العالم القديم.'},{title:'الآثار',desc:'الآثار الكبيرة مثل مكتبة الإسكندرية والمعابد.'}], activity:{question:'أحد آثار البطالمة في مصر هو؟', choices:['مكتبة الإسكندرية','أهرامات الجيزة فقط','سور الصين'], answer:0}}
+]
+}
+];
+
+const homeDiv=document.getElementById('home');
+const appDiv=document.getElementById('app');
+let currentUnitIndex=0,currentLessonIndex=0;
+
+function showHome(){
+appDiv.innerHTML='';
+homeDiv.style.display='block';
+homeDiv.innerHTML='';
+units.forEach((unit,uIdx)=>{
+let unitHtml=`<div class="unit"><h2>${unit.title}</h2>`;
+unit.lessons.forEach((lesson,lIdx)=>{
+unitHtml+=`<div class="lesson" onclick="openLesson(${uIdx},${lIdx})"><span>${lesson.title}</span></div>`;
+});
+unitHtml+='</div>';
+homeDiv.innerHTML+=unitHtml;
+});
+}
+
+function openLesson(uIdx,lIdx){
+homeDiv.style.display='none';
+appDiv.style.display='block';
+currentUnitIndex=uIdx;
+currentLessonIndex=lIdx;
+renderLesson();
+}
+
+function renderLesson(){
+const lesson=units[currentUnitIndex].lessons[currentLessonIndex];
+let html=`<div class="card"><h2>${lesson.title}</h2>`;
+html+=`<p style="font-size:16px;margin-top:10px;">${lesson.description}</p>`;
+html+=`<button class="btn" onclick="showVideo('${lesson.video}')">عرض الفيديو</button>`;
+html+=`<div class="mindmap">`;
+lesson.nodes.forEach(n=>html+=`<div class="node"><div class="title">${n.title}</div><div class="desc">${n.desc}</div></div>`);
+html+=`</div>`;
+
+// نشاط تفاعلي
+if(lesson.activity){
+html+=`<div class="activity"><strong>نشاط تفاعلي:</strong><p>${lesson.activity.question}</p>`;
+lesson.activity.choices.forEach((c,i)=>{
+html+=`<div class="choice" data-ans="${i}">${c}</div>`;
+});
+html+='</div>';
+}
+
+// أزرار التحكم
+html+=`<div class="controls">
+<button class="btn" onclick="prevLesson()" ${currentUnitIndex===0&&currentLessonIndex===0?'disabled':''}>السابق</button>
+<button class="btn" onclick="showHome()">الصفحة الرئيسية</button>
+<button class="btn" onclick="nextLesson()" ${currentUnitIndex===units.length-1&&currentLessonIndex===units[units.length-1].lessons.length-1?'disabled':''}>التالي</button>
+</div></div>`;
+appDiv.innerHTML=html;
+
+// تفعيل النشاط التفاعلي
+const choices=document.querySelectorAll('.choice');
+choices.forEach(c=>{
+c.onclick=()=>{
+const correct=lesson.activity.answer;
+choices.forEach(ch=>ch.classList.remove('correct','wrong'));
+if(parseInt(c.dataset.ans)===correct){c.classList.add('correct');}
+else{c.classList.add('wrong');choices[correct].classList.add('correct');}
+};
+});
+
+// تفعيل النقر على الخريطة الذهنية
+const nodes=document.querySelectorAll('.node');
+nodes.forEach(n=>{
+n.onclick=()=>{const desc=n.querySelector('.desc'); desc.style.display=desc.style.display==='block'?'none':'block';};
+});
+}
+
+// التنقل بين الدروس
+function prevLesson(){
+if(currentLessonIndex>0){currentLessonIndex--; renderLesson();}
+else if(currentUnitIndex>0){currentUnitIndex--; currentLessonIndex=units[currentUnitIndex].lessons.length-1; renderLesson();}
+}
+function nextLesson(){
+if(currentLessonIndex<units[currentUnitIndex].lessons.length-1){currentLessonIndex++; renderLesson();}
+else if(currentUnitIndex<units.length-1){currentUnitIndex++; currentLessonIndex=0; renderLesson();}
+}
+
+// Modal الفيديو
+const modal=document.getElementById('videoModal');
+const modalVideo=document.getElementById('modalVideo');
+const spanClose=document.querySelector('.close');
+spanClose.onclick=()=>{modal.style.display='none';modalVideo.src='';};
+window.onclick=(e)=>{if(e.target==modal){modal.style.display='none';modalVideo.src='';}};
+function showVideo(url){modalVideo.src=url;modal.style.display='block';}
+
+showHome();
+</script>
+</body>
+</html>
